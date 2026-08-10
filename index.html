@@ -4,41 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Emek Enderun Takip</title>
- 
-  <link rel="icon" href=https://r.resimlink.com/0TCVtU65v7P.png
+<link rel="icon" href="https://r.resimlink.com/0TCVtU65v7P.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --black: #000000;
-      --white: #ffffff;
-      --gray-50: #fafafa;
-      --gray-100: #f5f5f5;
-      --gray-200: #e5e5e5;
-      --gray-400: #a3a3a3;
-      --gray-600: #525252;
-      --radius: 18px;
-    }
-
     * {
       box-sizing: border-box;
     }
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-      navigator.serviceWorker.register("sw.js").catch(function () {});
-    });
-  }
-</script>
+
     body {
-      font-family: "Poppins", Arial, sans-serif;
+      font-family: "Inter", Arial, sans-serif;
       margin: 0;
       min-height: 100vh;
-      padding: 16px;
-      color: var(--black);
-      background: var(--gray-100);
+      padding: 20px;
+      color: #000;
+      background: #f2f2f2;
     }
 
     .app {
@@ -46,36 +28,41 @@
       margin: 0 auto;
     }
 
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", Georgia, serif;
+    }
+
     .panel {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+      border: 2px solid #000;
+      border-radius: 0;
+      padding: 18px;
+      margin-bottom: 24px;
+      box-shadow: 6px 6px 0 #000;
     }
 
     .hero {
-      background: var(--black);
-      color: var(--white);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+      background: #000;
+      color: #fff;
+      box-shadow: 6px 6px 0 #9ca3af;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 800;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.5px;
     }
 
     .subtitle {
-      margin-top: 4px;
+      margin-top: 6px;
       color: #d4d4d4;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     .date-nav {
@@ -89,8 +76,7 @@
     button,
     input[type="date"],
     input[type="text"] {
-      border: none;
-      border-radius: 12px;
+      border-radius: 0;
       padding: 10px 12px;
       font-size: 15px;
       font-family: inherit;
@@ -98,40 +84,52 @@
 
     button {
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.15s;
       font-weight: 700;
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    button:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 #000;
     }
 
     .date-nav button {
-      background: var(--black);
-      color: var(--white);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
-    }
-
-    .date-nav button:hover {
-      opacity: 0.85;
+      background: #000;
+      color: #fff;
     }
 
     input[type="date"] {
-      background: var(--white);
-      color: var(--black);
-      border: 1px solid var(--gray-200);
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
     }
 
     .date-text {
       font-weight: 800;
-      color: var(--black);
+      color: #000;
     }
 
     .section-title {
-      margin-bottom: 10px;
-      font-weight: 700;
-      color: var(--gray-600);
+      margin-bottom: 12px;
+      font-weight: 800;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
     }
 
     .student-list {
       display: grid;
-      gap: 10px;
+      gap: 12px;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
 
@@ -140,26 +138,25 @@
       flex-direction: column;
       gap: 4px;
       align-items: flex-start;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid var(--gray-200);
-      background: var(--white);
-      color: var(--black);
+      padding: 14px;
+      border: 2px solid #000;
+      border-radius: 0;
+      background: #fff;
+      color: #000;
       cursor: pointer;
       text-align: left;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-      transition: 0.2s;
+      box-shadow: 4px 4px 0 #000;
       font: inherit;
     }
 
     .student-btn:hover {
-      transform: translateY(-2px);
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0 #000;
     }
 
     .student-btn.active {
-      background: var(--black);
-      color: var(--white);
-      border-color: var(--black);
+      background: #000;
+      color: #fff;
     }
 
     .student-name {
@@ -168,7 +165,7 @@
 
     .student-progress {
       font-size: 12px;
-      color: var(--gray-600);
+      color: #525252;
       font-weight: 600;
     }
 
@@ -177,42 +174,27 @@
     }
 
     .detail h2 {
-      margin: 0 0 12px;
-      font-size: 20px;
+      margin: 0 0 14px;
+      font-size: 24px;
       font-weight: 800;
-      color: var(--black);
+      color: #000;
     }
 
     .tab-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .tab-btn {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-weight: 800;
-      color: var(--black);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-    }
-
-    .tab-btn:hover {
-      transform: translateY(-1px);
+      margin-bottom: 14px;
     }
 
     .tab-btn.active {
-      background: var(--black);
-      color: var(--white);
-      border-color: var(--black);
+      background: #000;
+      color: #fff;
     }
 
     .task-list {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .task-row {
@@ -220,21 +202,17 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 12px;
-      border-radius: 16px;
-      padding: 12px;
-      background: var(--white);
-      border-left: 6px solid var(--gray-200);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-      transition: 0.2s;
-    }
-
-    .task-row:hover {
-      transform: translateY(-1px);
+      padding: 14px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 0;
+      box-shadow: 4px 4px 0 #000;
+      transition: 0.15s;
     }
 
     .task-row.done {
-      border-left-color: var(--black);
-      background: var(--gray-50);
+      background: #000;
+      color: #fff;
     }
 
     .task-left {
@@ -248,8 +226,12 @@
     .task-row input[type="checkbox"] {
       width: 24px;
       height: 24px;
-      accent-color: var(--black);
+      accent-color: #000;
       cursor: pointer;
+    }
+
+    .task-row.done input[type="checkbox"] {
+      accent-color: #fff;
     }
 
     .task-name {
@@ -258,72 +240,78 @@
 
     .task-input {
       flex: 1 1 220px;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
+      border: 2px solid #000;
+      border-radius: 0;
       padding: 9px 11px;
-      background: var(--white);
-      color: var(--black);
+      background: #fff;
+      color: #000;
+    }
+
+    .task-row.done .task-input {
+      border-color: #fff;
     }
 
     .task-input:focus {
-      outline: 2px solid var(--black);
-      border-color: transparent;
+      outline: 2px solid #000;
+      outline-offset: 1px;
     }
 
     .badge {
       min-width: 96px;
       text-align: center;
       padding: 7px 10px;
-      border-radius: 999px;
+      border-radius: 0;
       font-size: 12px;
       font-weight: 800;
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
     }
 
     .badge.done {
-      background: var(--black);
-      color: var(--white);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      background: #fff;
+      color: #000;
     }
 
     .badge.todo {
-      background: var(--gray-200);
-      color: var(--gray-600);
+      background: #e5e5e5;
+      color: #525252;
     }
 
     .mulakat-title {
       margin: 0 0 10px;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 800;
-      color: var(--black);
+      color: #000;
     }
 
     .mulakat-info {
       font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--gray-600);
+      margin-bottom: 12px;
+      color: #525252;
     }
 
     .mulakat-list {
       display: grid;
-      gap: 8px;
+      gap: 10px;
       min-height: 80px;
     }
 
     .mulakat-item {
-      background: var(--white);
-      border-left: 5px solid var(--black);
-      border-radius: 12px;
-      padding: 10px 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 0;
+      padding: 12px 14px;
+      box-shadow: 4px 4px 0 #000;
       line-height: 1.4;
     }
 
     .mulakat-item b {
-      color: var(--black);
+      color: #000;
     }
 
     .muted {
-      color: var(--gray-600);
+      color: #525252;
     }
 
     .hidden {
@@ -333,14 +321,13 @@
     .footer {
       text-align: center;
       font-size: 12px;
-      color: var(--gray-600);
+      color: #525252;
       padding: 8px 0 20px;
     }
 
     @media (max-width: 640px) {
       .hero {
-        flex-direction: column;
-        align-items: flex-start;
+        text-align: left;
       }
 
       .date-nav {
@@ -445,7 +432,7 @@
         { id: "ogle", ad: "Öğle Namazı" },
         { id: "ikindi", ad: "İkindi Namazı" },
         { id: "aksam", ad: "Akşam Namazı" },
-                { id: "yatsi", ad: "Yatsı Namazı" },
+        { id: "yatsi", ad: "Yatsı Namazı" },
         { id: "tesbih", ad: "Tesbih Namazı", sadecePazar: true }
       ],
       ders: []
