@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emek Enderun Takip</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-600: #525252;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      padding: 16px;
+      color: var(--black);
+      background: var(--gray-100);
+    }
+
+    .app {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      color: #d4d4d4;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .date-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button,
+    input[type="date"],
+    input[type="text"] {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 700;
+    }
+
+    .date-nav button {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+    }
+
+    .date-nav button:hover {
+      opacity: 0.85;
+    }
+
+    input[type="date"] {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--gray-200);
+    }
+
+    .date-text {
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .section-title {
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: var(--gray-600);
+    }
+
+    .student-list {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .student-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--black);
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transition: 0.2s;
+      font: inherit;
+    }
+
+    .student-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .student-btn.active {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .student-name {
+      font-weight: 800;
+    }
+
+    .student-progress {
+      font-size: 12px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .student-btn.active .student-progress {
+      color: #d4d4d4;
+    }
+
+    .detail h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .tab-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 800;
+      color: var(--black);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .tab-btn.active {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .task-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .task-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      border-radius: 16px;
+      padding: 12px;
+      background: var(--white);
+      border-left: 6px solid var(--gray-200);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transition: 0.2s;
+    }
+
+    .task-row:hover {
+      transform: translateY(-1px);
+    }
+
+    .task-row.done {
+      border-left-color: var(--black);
+      background: var(--gray-50);
+    }
+
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1 1 260px;
+      cursor: pointer;
+    }
+
+    .task-row input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--black);
+      cursor: pointer;
+    }
+
+    .task-name {
+      font-weight: 700;
+    }
+
+    .task-input {
+      flex: 1 1 220px;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 9px 11px;
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .task-input:focus {
+      outline: 2px solid var(--black);
+      border-color: transparent;
+    }
+
+    .badge {
+      min-width: 96px;
+      text-align: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .badge.done {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .badge.todo {
+      background: var(--gray-200);
+      color: var(--gray-600);
+    }
+
+    .mulakat-title {
+      margin: 0 0 10px;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .mulakat-info {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--gray-600);
+    }
+
+    .mulakat-list {
+      display: grid;
+      gap: 8px;
+      min-height: 80px;
+    }
+
+    .mulakat-item {
+      background: var(--white);
+      border-left: 5px solid var(--black);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      line-height: 1.4;
+    }
+
+    .mulakat-item b {
+      color: var(--black);
+    }
+
+    .muted {
+      color: var(--gray-600);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray-600);
+      padding: 8px 0 20px;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .date-nav {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <div class="panel hero">
+      <div>
+        <h1>Emek Enderun Takip</h1>
+        <div class="subtitle">Manevi ve Ders Takip Sistemi</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="date-nav">
+        <button type="button" id="prevDay" title="Önceki gün">◀</button>
+        <input type="date" id="dateInput" />
+        <button type="button" id="nextDay" title="Sonraki gün">▶</button>
+        <button type="button" id="todayBtn">Bugün</button>
+        <div id="dateText" class="date-text"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Talebeler (A-Z)</div>
+
+      <div id="students" class="student-list">
+
+        <button type="button" class="student-btn" data-student="Ahmet Yasin Şahin">
+          <span class="student-name">Ahmet Yasin Şahin</span>
+          <span class="student-progress">0/0 görev yapıldı</span>
+        </button>
+
+        <button type="button" class="student-btn" data-student="Alihan Özen">
+          <span class="student-name">Alihan Özen</span>
+          <span class="student-progress">0/0 görev yapıldı</span>
+        </button>
+
+        <button type="button" class="student-btn" data-student="Faruk Selim Atacan">
+          <span class="student-name">Faruk Selim Atacan</span>
+          <span class="student-progress">0/0 görev yapıldı</span>
+        </button>
+
+        <button type="button" class="student-btn" data-student="Mehmet Emre Ülker">
+          <span class="student-name">Mehmet Emre Ülker</span>
+          <span class="student-progress">0/0 görev yapıldı</span>
+        </button>
+
+        <button type="button" class="student-btn" data-student="Mehmet Hamza Eren">
+          <span class="student-name">Mehmet Hamza Eren</span>
+          <span class="student-progress">0/0 görev yapıldı</span>
+        </button>
+
+        <button type="button" class="student-btn" data-student="Osman Kenan Çimendağ">
+          <span class="student-name">Osman Kenan Çimendağ</span>
+          <span class="student-progress">0/0 görev yapıldı</span>
+        </button>
+
+      </div>
+    </div>
+
+    <div class="panel detail">
+      <div id="emptyState">Bir talebe seçin; kontrol tablosu burada açılacak.</div>
+
+      <div id="detailContent" class="hidden">
+        <div class="tab-buttons">
+          <button type="button" id="tabManevi" class="tab-btn active">Manevi Takip</button>
+          <button type="button" id="tabDers" class="tab-btn">Ders Takip</button>
+        </div>
+
+        <h2 id="studentName"></h2>
+        <div id="taskList" class="task-list"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3 class="mulakat-title">Mülakat Penceresi</h3>
+      <div id="mulakatInfo" class="mulakat-info"></div>
+      <div id="mulakatList" class="mulakat-list"></div>
+    </div>
+
+    <footer class="footer">
+      © <span id="year"></span> Emek Enderun. Tüm hakları saklıdır.
+    </footer>
+
+  </div>
+
+  <script>
+    const STORAGE_KEY = "manevi_vazife_takip_v1";
+
+    const TASK_SETS = {
+      manevi: [
+        { id: "sabah", ad: "Sabah Namazı" },
+        { id: "hatim", ad: "Hatim Vazife" },
+        { id: "duha", ad: "Duha Namazı" },
+        { id: "ogle", ad: "Öğle Namazı" },
+        { id: "ikindi", ad: "İkindi Namazı" },
+        { id: "aksam", ad: "Akşam Namazı" },
+        { id: "tesbih", ad: "Tesbih Namazı", sadecePazar: true }
+      ],
+      ders: []
+    };
+
+    for (let i = 1; i <= 2; i++) {
+      TASK_SETS.ders.push({ id: "dahili_" + i, ad: "Dahili Ders " + i });
+    }
+
+    for (let i = 1; i <= 7; i++) {
+      TASK_SETS.ders.push({ id: "okul_" + i, ad: "Okul Dersi " + i });
+    }
+
+    for (let i = 1; i <= 2; i++) {
+      TASK_SETS.ders.push({ id: "etut_" + i, ad: "Etüt " + i });
+    }
+
+    let data = loadData();
+    let selectedDate = formatDateInput(new Date());
+    let selectedStudent = null;
+    let activeTab = "manevi";
+
+    const dateInput = document.getElementById("dateInput");
+    const dateText = document.getElementById("dateText");
+    const emptyState = document.getElementById("emptyState");
+    const detailContent = document.getElementById("detailContent");
+    const studentNameEl = document.getElementById("studentName");
+    const taskListEl = document.getElementById("taskList");
+    const mulakatInfo = document.getElementById("mulakatInfo");
+    const mulakatList = document.getElementById("mulakatList");
+    const tabManevi = document.getElementById("tabManevi");
+    const tabDers = document.getElementById("tabDers");
+
+    const studentButtons = Array.from(document.querySelectorAll(".student-btn[data-student]"));
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    studentButtons.forEach(btn => {
+      btn.addEventListener("click", function () {
+        selectedStudent = this.getAttribute("data-student");
+        activeTab = "manevi";
+        renderAll();
+      });
+    });
+
+    tabManevi.addEventListener("click", () => {
+      activeTab = "manevi";
+      renderAll();
+    });
+
+    tabDers.addEventListener("click", () => {
+      activeTab = "ders";
+      renderAll();
+    });
+
+    document.getElementById("prevDay").addEventListener("click", () => changeDay(-1));
+    document.getElementById("nextDay").addEventListener("click", () => changeDay(1));
+    document.getElementById("todayBtn").addEventListener("click", () => setSelectedDate(formatDateInput(new Date())));
+
+    dateInput.addEventListener("change", () => {
+      if (!dateInput.value) {
+        dateInput.value = selectedDate;
+        return;
+      }
+      setSelectedDate(dateInput.value);
+    });
+
+    renderAll();
+
+    function storageGet(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function storageSet(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {
+        // Depolama engellendiyse sistem yine çalışsın.
+      }
+    }
+
+    function normalizeData(raw) {
+      if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+
+      const modes = ["manevi", "ders"];
+
+      for (const dateKey in raw) {
+        if (!raw[dateKey] || typeof raw[dateKey] !== "object") {
+          raw[dateKey] = {};
+          continue;
+        }
+
+        for (const studentKey in raw[dateKey]) {
+          const studentRec = raw[dateKey][studentKey];
+
+          if (!studentRec || typeof studentRec !== "object" || Array.isArray(studentRec)) {
+            raw[dateKey][studentKey] = { manevi: {} };
+            continue;
+          }
+
+          const hasMode = Object.keys(studentRec).some(key => modes.includes(key));
+
+          if (!hasMode) {
+            raw[dateKey][studentKey] = { manevi: studentRec };
+          }
+        }
+      }
+
+      return raw;
+    }
+
+    function loadData() {
+      try {
+        const raw = storageGet(STORAGE_KEY);
+        return normalizeData(raw ? JSON.parse(raw) : {});
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveData() {
+      storageSet(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function formatDateInput(d) {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function parseSelectedDate(dateStr) {
+      return new Date(dateStr + "T00:00:00");
+    }
+
+    function isSunday(dateStr) {
+      return parseSelectedDate(dateStr).getDay() === 0;
+    }
+
+    function visibleTasks(dateStr, mode) {
+      const tasks = TASK_SETS[mode] || [];
+      const sunday = isSunday(dateStr);
+
+      return tasks.filter(t => !t.sadecePazar || sunday);
+    }
+
+    function formatDisplayDate(dateStr) {
+      const d = parseSelectedDate(dateStr);
+
+      const gunler = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+      const aylar = [
+        "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+        "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+      ];
+
+      return `${d.getDate()} ${aylar[d.getMonth()]} ${d.getFullYear()} - ${gunler[d.getDay()]}`;
+    }
+
+    function changeDay(diff) {
+      const d = parseSelectedDate(selectedDate);
+      d.setDate(d.getDate() + diff);
+      setSelectedDate(formatDateInput(d));
+    }
+
+    function setSelectedDate(dateStr) {
+      if (!dateStr) return;
+      selectedDate = dateStr;
+      renderAll();
+    }
+
+    function readModeRecord(dateStr, studentName, mode) {
+      const dateRec = data[dateStr];
+      if (!dateRec) return {};
+
+      const studentRec = dateRec[studentName];
+      if (!studentRec) return {};
+
+      return studentRec[mode] || {};
+    }
+
+    function getModeRecord(dateStr, studentName, mode) {
+      if (!data[dateStr]) data[dateStr] = {};
+      if (!data[dateStr][studentName]) data[dateStr][studentName] = {};
+      if (!data[dateStr][studentName][mode]) data[dateStr][studentName][mode] = {};
+
+      return data[dateStr][studentName][mode];
+    }
+
+    function getDoneCount(dateStr, studentName, mode) {
+      const rec = readModeRecord(dateStr, studentName, mode);
+      return visibleTasks(dateStr, mode).filter(t => rec[t.id] === true).length;
+    }
+
+    function renderAll() {
+      dateInput.value = selectedDate;
+      dateText.textContent = formatDisplayDate(selectedDate);
+
+      updateTabButtons();
+      renderStudents();
+      renderDetail();
+      renderMulakatWindow();
+    }
+
+    function updateTabButtons() {
+      tabManevi.classList.toggle("active", activeTab === "manevi");
+      tabDers.classList.toggle("active", activeTab === "ders");
+    }
+
+    function renderStudents() {
+      studentButtons.forEach(btn => {
+        const name = btn.getAttribute("data-student");
+        const done = getDoneCount(selectedDate, name, activeTab);
+        const total = visibleTasks(selectedDate, activeTab).length;
+
+        btn.classList.toggle("active", name === selectedStudent);
+
+        const progress = btn.querySelector(".student-progress");
+        if (progress) {
+          progress.textContent = `${done}/${total} görev yapıldı`;
+        }
+      });
+    }
+
+    function renderDetail() {
+      if (!selectedStudent) {
+        emptyState.classList.remove("hidden");
+        detailContent.classList.add("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      detailContent.classList.remove("hidden");
+
+      const mode = activeTab;
+
+      studentNameEl.textContent = `${selectedStudent} - ${formatDisplayDate(selectedDate)}`;
+      taskListEl.innerHTML = "";
+
+      const rec = readModeRecord(selectedDate, selectedStudent, mode);
+
+      visibleTasks(selectedDate, mode).forEach(task => {
+        const checked = rec[task.id] === true;
+        const noteValue = rec[task.id + "_not"] || "";
+
+        const row = document.createElement("div");
+        row.className = "task-row" + (checked ? " done" : "");
+
+        const left = document.createElement("label");
+        left.className = "task-left";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = checked;
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "task-name";
+        nameSpan.textContent = task.ad;
+
+        left.appendChild(checkbox);
+        left.appendChild(nameSpan);
+
+        const noteInput = document.createElement("input");
+        noteInput.type = "text";
+        noteInput.className = "task-input";
+        noteInput.placeholder = "Mülakat / not yaz...";
+        noteInput.value = noteValue;
+
+        const badge = document.createElement("span");
+        badge.className = "badge " + (checked ? "done" : "todo");
+        badge.textContent = checked ? "Yapıldı" : "Yapılmadı";
+
+        checkbox.addEventListener("change", () => {
+          const record = getModeRecord(selectedDate, selectedStudent, mode);
+          record[task.id] = checkbox.checked;
+          saveData();
+
+          row.classList.toggle("done", checkbox.checked);
+          badge.className = "badge " + (checkbox.checked ? "done" : "todo");
+          badge.textContent = checkbox.checked ? "Yapıldı" : "Yapılmadı";
+
+          renderStudents();
+        });
+
+        noteInput.addEventListener("input", function () {
+          const record = getModeRecord(selectedDate, selectedStudent, mode);
+          record[task.id + "_not"] = this.value;
+          saveData();
+          renderMulakatWindow();
+        });
+
+        row.appendChild(left);
+        row.appendChild(noteInput);
+        row.appendChild(badge);
+
+        taskListEl.appendChild(row);
+      });
+    }
+
+    function renderMulakatWindow() {
+      if (!selectedStudent) {
+        mulakatInfo.textContent = "";
+        mulakatList.innerHTML = '<div class="muted">Mülakat notlarının görünmesi için önce bir talebe seç.</div>';
+        return;
+      }
+
+      const mode = activeTab;
+      const modeName = mode === "manevi" ? "Manevi Takip" : "Ders Takip";
+
+      mulakatInfo.textContent = `${selectedStudent} - ${formatDisplayDate(selectedDate)} - ${modeName}`;
+
+      const rec = readModeRecord(selectedDate, selectedStudent, mode);
+
+      let items = "";
+
+      visibleTasks(selectedDate, mode).forEach(task => {
+        const note = rec[task.id + "_not"] || "";
+
+        if (note.trim() !== "") {
+          items += `
+            <div class="mulakat-item">
+              <b>${escapeHtml(task.ad)}:</b> ${escapeHtml(note)}
+            </div>
+          `;
+        }
+      });
+
+      if (items === "") {
+        mulakatList.innerHTML = `
+          <div class="muted">
+            Henüz mülakat notu yok. Görev satırlarındaki “Mülakat / not yaz...” kutusuna yazınca burada otomatik görünür.
+          </div>
+        `;
+      } else {
+        mulakatList.innerHTML = items;
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
