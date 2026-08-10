@@ -1,0 +1,19 @@
+{
+  "name": "Emek Enderun Takip",
+  "short_name": "Takip",
+  "description": "Manevi ve ders takip sistemi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
